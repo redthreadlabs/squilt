@@ -98,7 +98,7 @@ We'll implement this in dependency order to ensure the code compiles at each ste
 Once implemented, users will be able to write:
 
 ```typescript
-import { DELETE_FROM, EQ, COLUMN, PARAM } from '@shaxpir/squilt';
+import { DELETE_FROM, EQ, COLUMN, PARAM } from '@redthreadlabs/squilt';
 
 const query = DELETE_FROM('users')
   .where(EQ(COLUMN('id'), PARAM('userId')));

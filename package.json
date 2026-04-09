@@ -1,5 +1,5 @@
 {
-  "name": "@shaxpir/squilt",
+  "name": "@redthreadlabs/squilt",
   "version": "1.2.0",
   "description": "A lightweight, zero-dependency TypeScript library for building SQL queries through a fluent AST API",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shaxpir/squilt.git"
+    "url": "https://github.com/redthreadlabs/squilt.git"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
@@ -32,8 +32,5 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
     "typescript": "^5.7.2"
-  },
-  "dependencies": {
-    "@shaxpir/squilt": "^1.0.0"
   }
 }

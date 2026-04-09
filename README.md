@@ -5,7 +5,7 @@ A lightweight, zero-dependency TypeScript library for building SQL queries throu
 ## Installation
 
 ```bash
-npm install @shaxpir/squilt
+npm install @redthreadlabs/squilt
 ```
 
 ## Usage
@@ -15,8 +15,8 @@ npm install @shaxpir/squilt
 The shorthand API provides a concise, SQL-like syntax for building queries:
 
 ```typescript
-import { SELECT, FROM, COLUMN, EQ, JOIN, ORDER_BY } from '@shaxpir/squilt';
-import { OrderByDirection } from '@shaxpir/squilt';
+import { SELECT, FROM, COLUMN, EQ, JOIN, ORDER_BY } from '@redthreadlabs/squilt';
+import { OrderByDirection } from '@redthreadlabs/squilt';
 
 const query = SELECT(
   FROM('users').as('u'),
@@ -44,7 +44,7 @@ console.log(query.toSQL());
 For more control, use the fluent QueryBuilder API:
 
 ```typescript
-import { QueryBuilder, Column, TableFrom, Alias } from '@shaxpir/squilt';
+import { QueryBuilder, Column, TableFrom, Alias } from '@redthreadlabs/squilt';
 
 const query = QueryBuilder.select()
   .from(new Alias(new TableFrom('users'), 'u'))
@@ -58,7 +58,7 @@ const query = QueryBuilder.select()
 Squilt supports both compact and indented rendering:
 
 ```typescript
-import { CompactQueryRenderer, IndentedQueryRenderer } from '@shaxpir/squilt';
+import { CompactQueryRenderer, IndentedQueryRenderer } from '@redthreadlabs/squilt';
 
 // Compact output (single line)
 query.toSQL(new CompactQueryRenderer());
@@ -78,7 +78,7 @@ query.toSQL(new IndentedQueryRenderer(2));
 Build DELETE statements with optional WHERE clauses:
 
 ```typescript
-import { DELETE_FROM, EQ, COLUMN, PARAM, AND, LT } from '@shaxpir/squilt';
+import { DELETE_FROM, EQ, COLUMN, PARAM, AND, LT } from '@redthreadlabs/squilt';
 
 // Simple delete
 const deleteAll = DELETE_FROM('temp_files');
@@ -98,7 +98,7 @@ console.log(deleteOld.toSQL());
 DELETE queries support subqueries in WHERE clauses:
 
 ```typescript
-import { DELETE_FROM, SELECT, FROM, COLUMN, IN, EXISTS, EQ } from '@shaxpir/squilt';
+import { DELETE_FROM, SELECT, FROM, COLUMN, IN, EXISTS, EQ } from '@redthreadlabs/squilt';
 
 // Delete using IN with subquery
 const bannedUsers = SELECT(FROM('banned_users'), COLUMN('id'));
@@ -122,8 +122,8 @@ console.log(deleteOrders.toSQL());
 Build UPDATE statements with SET clauses and optional WHERE:
 
 ```typescript
-import { UPDATE, EQ, COLUMN, PARAM } from '@shaxpir/squilt';
-import { StringLiteral, NumberLiteral } from '@shaxpir/squilt';
+import { UPDATE, EQ, COLUMN, PARAM } from '@redthreadlabs/squilt';
+import { StringLiteral, NumberLiteral } from '@redthreadlabs/squilt';
 
 // Simple update
 const updateStatus = UPDATE('users')
@@ -148,7 +148,7 @@ console.log(bulkUpdate.toSQL());
 Get back affected rows from INSERT, UPDATE, and DELETE statements:
 
 ```typescript
-import { INSERT, UPDATE, DELETE_FROM, COLUMN, PARAM, EQ, ALIAS, FN } from '@shaxpir/squilt';
+import { INSERT, UPDATE, DELETE_FROM, COLUMN, PARAM, EQ, ALIAS, FN } from '@redthreadlabs/squilt';
 
 // INSERT with RETURNING
 const createUser = INSERT('users', ['name', 'email'], [PARAM('name'), PARAM('email')])
@@ -186,7 +186,7 @@ console.log(insertWithAlias.toSQL());
 Insert rows from a query result:
 
 ```typescript
-import { INSERT_INTO, SELECT, FROM, COLUMN, EQ, LT, PARAM } from '@shaxpir/squilt';
+import { INSERT_INTO, SELECT, FROM, COLUMN, EQ, LT, PARAM } from '@redthreadlabs/squilt';
 
 // Basic INSERT ... SELECT
 const archiveOrders = INSERT_INTO('archive_orders')
@@ -223,7 +223,7 @@ console.log(copyWithIds.toSQL());
 Combine query results with set operations:
 
 ```typescript
-import { SELECT, FROM, COLUMN, EQ } from '@shaxpir/squilt';
+import { SELECT, FROM, COLUMN, EQ } from '@redthreadlabs/squilt';
 
 // UNION - combine results from multiple queries (already supported)
 const allEmails = SELECT(FROM('customers'), COLUMN('email'))
@@ -255,7 +255,7 @@ const complexSet = SELECT(FROM('set_a'), COLUMN('id'))
 Insert-or-update operations using SQLite's upsert syntax:
 
 ```typescript
-import { INSERT, PARAM, COLUMN, EQ } from '@shaxpir/squilt';
+import { INSERT, PARAM, COLUMN, EQ } from '@redthreadlabs/squilt';
 
 // ON CONFLICT DO UPDATE - update existing rows on conflict
 const upsertUser = INSERT('users', ['id', 'name', 'email'], [PARAM('id'), PARAM('name'), PARAM('email')])
@@ -305,7 +305,7 @@ console.log(upsertWithReturn.toSQL());
 Create tables with columns, constraints, and SQLite options:
 
 ```typescript
-import { CREATE_TABLE } from '@shaxpir/squilt';
+import { CREATE_TABLE } from '@redthreadlabs/squilt';
 
 // Simple table with primary key
 const createUsers = CREATE_TABLE('users')
@@ -333,8 +333,8 @@ const createOrders = CREATE_TABLE('orders')
 Create indexes with support for expressions:
 
 ```typescript
-import { CREATE_INDEX, COLUMN, FN, EQ } from '@shaxpir/squilt';
-import { StringLiteral } from '@shaxpir/squilt';
+import { CREATE_INDEX, COLUMN, FN, EQ } from '@redthreadlabs/squilt';
+import { StringLiteral } from '@redthreadlabs/squilt';
 
 // Simple column index
 const simpleIndex = CREATE_INDEX('idx_users_email')
@@ -379,7 +379,7 @@ const partialIndex = CREATE_INDEX('idx_active_users')
 Remove tables and indexes from the database:
 
 ```typescript
-import { DROP_TABLE, DROP_INDEX } from '@shaxpir/squilt';
+import { DROP_TABLE, DROP_INDEX } from '@redthreadlabs/squilt';
 
 // Simple DROP TABLE
 const dropUsers = DROP_TABLE('users');
@@ -407,7 +407,7 @@ console.log(dropOldIndex.toSQL());
 Use BETWEEN for range comparisons:
 
 ```typescript
-import { SELECT, FROM, COLUMN, BETWEEN, NOT_BETWEEN, PARAM, AND } from '@shaxpir/squilt';
+import { SELECT, FROM, COLUMN, BETWEEN, NOT_BETWEEN, PARAM, AND } from '@redthreadlabs/squilt';
 
 // Price range query
 const priceFilter = SELECT(FROM('products'), COLUMN('*'))
@@ -433,7 +433,7 @@ console.log(excludeRange.toSQL());
 Use named parameters for safe value binding:
 
 ```typescript
-import { SELECT, FROM, COLUMN, EQ, PARAM, ParamCollectingVisitor } from '@shaxpir/squilt';
+import { SELECT, FROM, COLUMN, EQ, PARAM, ParamCollectingVisitor } from '@redthreadlabs/squilt';
 
 const query = SELECT(FROM('users'), COLUMN('*'))
   .where(EQ(COLUMN('id'), PARAM('userId')));
